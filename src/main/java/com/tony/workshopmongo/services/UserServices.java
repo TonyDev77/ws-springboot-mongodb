@@ -33,12 +33,12 @@ public class UserServices {
         return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 
-    public User insertUser(UserDTO userDTO) {
+    public User saveUser(UserDTO userDTO) {
         User user = fromDTO(userDTO);
         User userExists = userRepository.findByEmail(user.getEmail());
 
         if (userExists != null && !userExists.equals(user)) {
-            throw new ObjectNotFoundException("Já existe um cliente cadastrado com este email");
+            throw new ObjectNotFoundException("Não foi possível salvar o user: " + user.getName());
         }
 
         userRepository.save(user);
