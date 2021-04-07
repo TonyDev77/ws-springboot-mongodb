@@ -45,4 +45,11 @@ public class UserServices {
 
         return user;
     }
+
+    public void deleteUser(String id) {
+        if (!userRepository.existsById(id)) {
+            throw new ObjectNotFoundException("Não existe o id: " + id + " no banco de dados!");
+        }
+        userRepository.deleteById(id);
+    }
 }
