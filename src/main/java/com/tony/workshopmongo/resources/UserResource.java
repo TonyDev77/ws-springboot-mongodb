@@ -1,5 +1,6 @@
 package com.tony.workshopmongo.resources;
 
+import com.tony.workshopmongo.domain.Post;
 import com.tony.workshopmongo.domain.User;
 import com.tony.workshopmongo.dto.UserDTO;
 import com.tony.workshopmongo.services.UserServices;
@@ -55,5 +56,13 @@ public class UserResource {
     public ResponseEntity<Void> deleteUser(@PathVariable String id) {
         userServices.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+
+        User user = userServices.findById(id);
+        UserDTO userDTO = new UserDTO(user);
+        return ResponseEntity.ok().body(userDTO.getPosts());
     }
 }
