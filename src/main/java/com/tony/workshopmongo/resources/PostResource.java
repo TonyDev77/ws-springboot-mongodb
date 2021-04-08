@@ -3,13 +3,11 @@ package com.tony.workshopmongo.resources;
 import com.tony.workshopmongo.domain.Post;
 import com.tony.workshopmongo.domain.User;
 import com.tony.workshopmongo.dto.UserDTO;
+import com.tony.workshopmongo.resources.util.MyURL;
 import com.tony.workshopmongo.services.PostServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,5 +32,13 @@ public class PostResource {
 
         Post post = postServices.findById(id);
         return ResponseEntity.ok().body(post);
+    }
+
+    @GetMapping(value = "/titleseach")
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
+
+        text = MyURL.decodeParam(text);
+        List<Post> posts = postServices.findByTitle(text);
+        return ResponseEntity.ok().body(posts);
     }
 }
