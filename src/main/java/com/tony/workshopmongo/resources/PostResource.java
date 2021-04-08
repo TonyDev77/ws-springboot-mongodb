@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,8 +51,8 @@ public class PostResource {
     ) {
 
         text = MyURL.decodeParam(text);
-        LocalDateTime dateMin = MyURL.convertDate(minDate, LocalDateTime.now());
-        LocalDateTime dateMax = MyURL.convertDate(maxDate, LocalDateTime.now());
+        LocalDate dateMin = MyURL.convertDate(minDate, LocalDate.now());
+        LocalDate dateMax = MyURL.convertDate(maxDate, LocalDate.now());
         List<Post> posts = postServices.fullSearch(text, dateMin, dateMax);
 
         return ResponseEntity.ok().body(posts);

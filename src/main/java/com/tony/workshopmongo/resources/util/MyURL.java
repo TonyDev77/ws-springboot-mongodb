@@ -2,8 +2,7 @@ package com.tony.workshopmongo.resources.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.text.ParseException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
@@ -18,11 +17,11 @@ public class MyURL {
     }
 
 
-    public static LocalDateTime convertDate(String textDate, LocalDateTime defaultValue) {
+    public static LocalDate convertDate(String textDate, LocalDate defaultValue) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             TemporalAccessor ta = dtf.parse(textDate);
-            return LocalDateTime.from(ta);
+            return LocalDate.from(ta);
         } catch (RuntimeException e) {
             return defaultValue;
         }
